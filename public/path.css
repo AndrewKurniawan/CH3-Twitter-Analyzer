@@ -11,6 +11,7 @@ path:hover {
 
 #legend {
     padding: 15px;
+    border-radius: 10px;
     flex-shrink: 1;
     width: 20%;
     height: 600px;
@@ -18,19 +19,62 @@ path:hover {
 }
 
 #legend #legendtitle {
-    padding: 5px;
+    padding: 10px 5px;
     font-family: Resamitz;
     font-size: 1.4em;
 }
 
-#legend .legenditems {
+#legend #legenditems {
     font-family: Glametrix;
     font-size: 2em;
+    padding: 5px 5px;
+}
+
+#legenditems > div {
+    padding: 10px 0px;
 }
 
 .block {
     width: 20px;
     height: 20px;
-    background-color: white;
+    /*background-color: white;*/
     display: inline-block;
+}
+
+#tooltip {
+    position: absolute;
+    padding: 10px;
+    width: 180px;
+    border-radius: 10px;
+    background-color: #4d83b3;
+    z-index: 20;
+    display: none;
+}
+#tooltipTitle {
+    padding: 5px 0px 0px 10px;
+    font-family: Resamitz;
+    font-size: 1.1em;
+}
+.ttbar {
+    width: 85px;
+    padding: 0px;
+    background-color: #3e678e;
+    text-align: right;
+    overflow: visible;
+}
+#tooltipVals {
+    padding: 5px;
+    font-family: Glametrix;
+    font-size: 1.7em;
+}
+#tooltipVals span {
+    height: 30px;
+}
+.ttValFlex {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.ttValName {
+    margin-right: auto;
 }

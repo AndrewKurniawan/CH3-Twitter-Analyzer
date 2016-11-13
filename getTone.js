@@ -9,7 +9,8 @@ module.exports = {};
 class toneObj {
     constructor(emotDict) {
         this.tones = emotDict;
-}
+    }
+
     toString() {
         var toRet = "";
         for (var toneCat in this.tones) {
@@ -47,6 +48,20 @@ function consolidateToneObjs(listObjs) {
             "Emotional Range": 0
         }
     };
+    for (var iii = 0; iii < listObjs.length; iii++) {
+        var listObj = listObjs[iii];
+        for (var toneCat in listObj.tones) {
+            if (listObj.tones.hasOwnProperty(toneCat)) {
+                var tonesInCat = listObj.tones[toneCat];
+                for (var tone in tonesInCat) {
+                    if (tonesInCat.hasOwnProperty(tone)) {
+                        base[toneCat][tone] += tonesInCat[tone] / listObjs.length;
+                    }
+                }
+            }
+        }
+    }
+    return base;
     //TODO
 }
 
@@ -72,13 +87,13 @@ var tA = new ToneAnalyzerV3({
     version_date: '2016-05-19'
 });
 /*
-tA.tone({text: 'Greetings from Watson Developer Cloud!'},
-    function (err, tone) {
-        if (err)
-            console.log(err);
-        else
-            console.log(getToneObj(tone).toString());
-    });*/
+ tA.tone({text: 'Greetings from Watson Developer Cloud!'},
+ function (err, tone) {
+ if (err)
+ console.log(err);
+ else
+ console.log(getToneObj(tone).toString());
+ });*/
 
 function getToneOfText(str, addTo, callback) {
     tA.tone({text: str},
@@ -87,15 +102,17 @@ function getToneOfText(str, addTo, callback) {
                 return;
             else
                 addTo.push(getToneObj(tone));
-            callback();
+            if (callback != null) {
+                callback();
+            }
         });
 }
 module.exports.getToneOfText = getToneOfText;
 
 //testing below
 /*
-var arr = [];
+ var arr = [];
 
-getToneOfText("Hello, my name is Bob", arr, function() {
-    console.log(arr[0]);
-});*/
+ getToneOfText("Hello, my name is Bob", arr, function() {
+ console.log(arr[0]);
+ });*/

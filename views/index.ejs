@@ -15,35 +15,16 @@
 <body class="background">
 <header></header>
 <div class="mainbody">
-    <div id="mainbody-intro">
-        <h2><%= title %></h2>
-        <p>Welcome to <%= title %></p>
-    </div>
+    <h2>Welcome</h2>
+    <hr>
+    <p>
+        to Twitter Watson, where you can see how America feels about the hottest topics!
+        <br>
+        <br>
+        Go to /map/[hashtag] to view a map of America's feelings on a certain Twitter hashtag. For example: <a href="/map/trump">/map/trump</a>
+    </p>
     <div id="mapbody">
-        <ul class="navbar simpleCCflex" style="background-color: transparent">
-            <li class="standalone curr" id="EmotionToneButton"
-                onclick="showToneMap(event, 'Emotion')">Emotion Tone
-            </li>
-            <li class="standalone" id="LanguageToneButton"
-                onclick="showToneMap(event, 'Language')">Language Tone
-            </li>
-            <li class="standalone" id="SocialToneButton"
-                onclick="showToneMap(event, 'Social')">Social Tone
-            </li>
-        </ul>
-        <div class="spaceArdCenterFlex">
-            <div id="kartomap1"></div>
-            <div id="legend">
-                <div id="legendtitle">Emotion Tone
-                </div>
-                <hr>
-                <div class="legenditems">
-                    <div class="spaceBwCenterFlex">Anger
-                        <div class="block"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
 
     </div>
 </div>
