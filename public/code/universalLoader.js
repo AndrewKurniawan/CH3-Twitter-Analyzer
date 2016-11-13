@@ -85,35 +85,35 @@ $(document).ready(function () {
 });
 
 function onMapLoad() {
-    //$.get("/getData", null, function (emotData) {
-    {
-        //emotionData = emotData;
-        map.addLayer('layer0', {
-            styles: {
-                stroke: '#aaa',
-                fill: getStateFillEmotionTone
-            },
-            mouseenter: function (d, path) {
-                console.log(path);
-                tooltipInfo(d.label);
-                $("#tooltip").css({display: 'block'});
-                path.toFront();
-                //$(path)[0][0].style.transformOrigin ="initial";
-                //$(path)[0][0].style.transform ="scale(1.5)";
-                //$(path)[0][0].style.zIndex ="5";
-                //$(path)[0][0].style.zIndex ="5";
-                //path.animate({size: 1.5*path.attr("width")}, 1000);
-            },
-            mouseleave: function (d, path) {
-                $("#tooltip").css({display: 'none'});
-                //$(path)[0][0].style.transform ="scale(1.0)";
-                //$(path)[0][0].style.zIndex ="1";
-                //path.animate({fill: getStateFill(d)}, 1000);
-            }
-        });
-        layer0 = map.getLayer('layer0');
+    hashtag = window.location.pathname.split("/").pop();
+    $.get("/getData/" + hashtag, null, function (emotData) {
+        emotionData = emotData;
         showToneMap(null, "Emotion");
-    }//);
+    });
+    map.addLayer('layer0', {
+        styles: {
+            stroke: '#aaa',
+            fill: '#808080'
+        },
+        mouseenter: function (d, path) {
+            console.log(path);
+            tooltipInfo(d.label);
+            $("#tooltip").css({display: 'block'});
+            path.toFront();
+            //$(path)[0][0].style.transformOrigin ="initial";
+            //$(path)[0][0].style.transform ="scale(1.5)";
+            //$(path)[0][0].style.zIndex ="5";
+            //$(path)[0][0].style.zIndex ="5";
+            //path.animate({size: 1.5*path.attr("width")}, 1000);
+        },
+        mouseleave: function (d, path) {
+            $("#tooltip").css({display: 'none'});
+            //$(path)[0][0].style.transform ="scale(1.0)";
+            //$(path)[0][0].style.zIndex ="1";
+            //path.animate({fill: getStateFill(d)}, 1000);
+        }
+    });
+    layer0 = map.getLayer('layer0');
 
     $(".kartograph svg").css("position", "static");
 }
@@ -140,7 +140,7 @@ function tooltipInfo(state) {
                     shortemotion = shortEmoteMap[emotion];
                 }
                 var spanWidth = 85 * emoteList[emotion];
-                var altSpanWidth = 85 -spanWidth;
+                var altSpanWidth = 85 - spanWidth;
                 toRet += '<div class="ttValFlex"><span class="ttValName">' + shortemotion + '</span>' +
                     '<span class="ttbar" style="width:' + altSpanWidth + 'px"></span>' +
                     '<span class="ttbar" style="width:' + spanWidth + 'px; background-color:' + chroma(colorMapping[currEmoteType][emotion]).hex() + '">' /*+ emoteList[emotion].toFixed(3) */ + '</span>' +
@@ -154,7 +154,7 @@ function tooltipInfo(state) {
 }
 
 function getStateFill(stateObj) {
-    return (stateObj.label < "MMM") ? "#222222" : "#cccccc";
+    return (stateObj.label < "MMM") ? "#cccccc" : "#cccccc";
 }
 
 function getStateFillEmotionTone(stateObj) {

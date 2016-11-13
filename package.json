@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "@google/maps": "^0.3.0",
     "body-parser": "~1.15.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
@@ -14,6 +15,7 @@
     "kartograph-js": "^0.8.7",
     "morgan": "~1.7.0",
     "serve-favicon": "~2.3.0",
+    "twitter": "^1.4.0",
     "watson-developer-cloud": "^2.8.2"
   }
 }

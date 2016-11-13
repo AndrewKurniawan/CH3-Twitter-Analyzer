@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TW Map Display</title>
+    <link rel='stylesheet' href='/main.css'/>
+    <link rel='stylesheet' href='/path.css'/>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"/>
+    <script src="/lib/jquery-3.1.1.js"></script>
+    <script src="/lib/jquery-ui.js"></script>
+    <script src="/lib/raphael.min.js"></script>
+    <script src="/lib/kartograph.min.js"></script>
+    <script src="/lib/chroma.js"></script>
+    <script src="/code/universalLoader.js"></script>
+</head>
+<body class="background">
+<header></header>
+<div class="mainbody">
+    <div id="tooltip">
+        <div id="tooltipTitle"></div>
+        <hr style="margin-bottom: -20px">
+        <div id="tooltipVals">
+            <div class="spaceBwCenterFlex"><span>Anger</span>
+                <span>.455</span>
+            </div>
+            <div class="spaceBwCenterFlex"><span>Anger</span>
+                <span>.455</span>
+            </div>
+            <div class="spaceBwCenterFlex"><span>Anger</span>
+                <span>.455</span>
+            </div>
+            <div class="spaceBwCenterFlex"><span>Anger</span>
+                <span>.455</span>
+            </div>
+        </div>
+    </div>
+    <div id="mainbody-intro">
+        <h2><%= hashtag.toUpperCase() %></h2>
+        <p>How does America feel about <%= hashtag %>?</p>
+    </div>
+    <div id="mapbody">
+        <ul class="navbar simpleCCflex" style="background-color: transparent">
+            <li class="standalone curr" id="EmotionToneButton"
+                onclick="showToneMap(event, 'Emotion')">Emotion Tone
+            </li>
+            <li class="standalone" id="LanguageToneButton"
+                onclick="showToneMap(event, 'Language')">Language Tone
+            </li>
+            <li class="standalone" id="SocialToneButton"
+                onclick="showToneMap(event, 'Social')">Social Tone
+            </li>
+        </ul>
+        <div class="spaceArdCenterFlex">
+            <div id="kartomap1"></div>
+            <div id="legend">
+                <div id="legendtitle">Legend
+                </div>
+                <hr>
+                <div id="legenditems">
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<footer></footer>
+</body>
+</html>
