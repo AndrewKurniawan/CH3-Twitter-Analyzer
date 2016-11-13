@@ -6,6 +6,7 @@
 var map;
 var layer0;
 var hashtag;
+var currEmoteType = "Emotion Tone";
 var emotionData = {
     "California": {
         'Emotion Tone': {
@@ -15,7 +16,7 @@ var emotionData = {
             'Joy': 0.551253,
             'Sadness': 0.248985
         },
-        'Language Tone': {'Analytical': .4, 'Confident': .2, 'Tentative': .4},
+        'Language Tone': {'Analytical': 1, 'Confident': .2, 'Tentative': .4},
         'Social Tone': {
             'Openness': 0.382079,
             'Conscientiousness': 0.271994,
@@ -94,6 +95,8 @@ function onMapLoad() {
             },
             mouseenter: function (d, path) {
                 console.log(path);
+                tooltipInfo(d.label);
+                $("#tooltip").css({display: 'block'});
                 path.toFront();
                 //$(path)[0][0].style.transformOrigin ="initial";
                 //$(path)[0][0].style.transform ="scale(1.5)";
@@ -102,15 +105,52 @@ function onMapLoad() {
                 //path.animate({size: 1.5*path.attr("width")}, 1000);
             },
             mouseleave: function (d, path) {
+                $("#tooltip").css({display: 'none'});
                 //$(path)[0][0].style.transform ="scale(1.0)";
                 //$(path)[0][0].style.zIndex ="1";
                 //path.animate({fill: getStateFill(d)}, 1000);
             }
         });
         layer0 = map.getLayer('layer0');
+        showToneMap(null, "Emotion");
     }//);
 
     $(".kartograph svg").css("position", "static");
+}
+$(document).mousemove(function (e) {
+    $("#tooltip").css({left: e.pageX, top: e.pageY});
+});
+
+var shortEmoteMap = {
+    'Conscientiousness': 'Conscient.',
+    'Agreeableness': 'Agreeable',
+    'Emotional Range': 'Range',
+    'Extraversion': 'Extravert.'
+};
+
+function tooltipInfo(state) {
+    $("#tooltipTitle").html(state);
+    var toRet = "";
+    if (emotionData.hasOwnProperty(state)) {
+        var emoteList = emotionData[state][currEmoteType];
+        for (var emotion in emoteList) {
+            if (emoteList.hasOwnProperty(emotion)) {
+                var shortemotion = emotion;
+                if (shortEmoteMap.hasOwnProperty(emotion)) {
+                    shortemotion = shortEmoteMap[emotion];
+                }
+                var spanWidth = 85 * emoteList[emotion];
+                var altSpanWidth = 85 -spanWidth;
+                toRet += '<div class="ttValFlex"><span class="ttValName">' + shortemotion + '</span>' +
+                    '<span class="ttbar" style="width:' + altSpanWidth + 'px"></span>' +
+                    '<span class="ttbar" style="width:' + spanWidth + 'px; background-color:' + chroma(colorMapping[currEmoteType][emotion]).hex() + '">' /*+ emoteList[emotion].toFixed(3) */ + '</span>' +
+                    '</div>'
+            }
+        }
+    } else {
+        toRet = "No data";
+    }
+    $("#tooltipVals").html(toRet);
 }
 
 function getStateFill(stateObj) {
@@ -147,11 +187,32 @@ function getStateFillByTone(stateObj, toneCat) {
     }
 }
 
+function legendObjects(dict) {
+    console.log("Legending:", dict);
+    var toRet = "";
+    for (var colorMap in dict) {
+        if (dict.hasOwnProperty(colorMap)) {
+            toRet += '<div class="spaceBwCenterFlex">' + colorMap +
+                '<div class="block" style="background-color:' + chroma(dict[colorMap]).hex() + '"></div>' +
+                '</div>'
+        }
+    }
+    $("#legenditems").html(toRet);
+    /*
+     <div class="spaceBwCenterFlex">Anger
+     <div class="block"></div>
+     </div>
+     */
+}
+
 function showToneMap(evt, toneType) {
     $("#EmotionToneButton").removeClass("curr");
     $("#LanguageToneButton").removeClass("curr");
     $("#SocialToneButton").removeClass("curr");
     $("#" + toneType + "ToneButton").addClass("curr");
+    currEmoteType = toneType + " Tone";
+    $("#legendtitle").html(currEmoteType);
+    legendObjects(colorMapping[currEmoteType]);
     if (toneType == "Emotion") {
         map.getLayer("layer0").style('fill', function (data) {
             return getStateFillEmotionTone(data);

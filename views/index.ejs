@@ -15,9 +15,27 @@
 <body class="background">
 <header></header>
 <div class="mainbody">
+    <div id="tooltip">
+        <div id="tooltipTitle"></div>
+        <hr style="margin-bottom: -20px">
+        <div id="tooltipVals">
+            <div class="spaceBwCenterFlex"><span>Anger</span>
+                <span>.455</span>
+            </div>
+            <div class="spaceBwCenterFlex"><span>Anger</span>
+                <span>.455</span>
+            </div>
+            <div class="spaceBwCenterFlex"><span>Anger</span>
+                <span>.455</span>
+            </div>
+            <div class="spaceBwCenterFlex"><span>Anger</span>
+                <span>.455</span>
+            </div>
+        </div>
+    </div>
     <div id="mainbody-intro">
-        <h2><%= title %></h2>
-        <p>Welcome to <%= title %></p>
+        <h2><%= hashtag.toUpperCase() %></h2>
+        <p>How does America feel about <%= hashtag %>?</p>
     </div>
     <div id="mapbody">
         <ul class="navbar simpleCCflex" style="background-color: transparent">
@@ -37,8 +55,11 @@
                 <div id="legendtitle">Emotion Tone
                 </div>
                 <hr>
-                <div class="legenditems">
+                <div id="legenditems">
                     <div class="spaceBwCenterFlex">Anger
+                        <div class="block"></div>
+                    </div>
+                    <div class="spaceBwCenterFlex">Pride
                         <div class="block"></div>
                     </div>
                 </div>

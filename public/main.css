@@ -305,6 +305,7 @@ hr {
     border: none;
     border-top: medium solid white;
     text-align: center;
+    margin: 10px 0 -10px 0;
 }
 hr:after {
     font-family: "Times New Roman", serif;
