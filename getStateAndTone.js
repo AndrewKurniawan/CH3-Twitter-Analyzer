@@ -69,9 +69,20 @@ function appendTweetToDictGenLoc(loc, tweet, dic, callback) {
         });
     }).end();
 }
+function givenState(state, tweet, dic, callback) {
+    if (states_hash.hasOwnProperty(state)) {
+        if (!dic.hasOwnProperty(state)) {
+            dic[state] = [];
+        }
+        toner.getToneOfText(tweet, dic[state], callback);
+    } else if (callback != null) {
+        callback();
+    }
+}
 
 module.exports.appendTweetEmoteDataToDict = appendTweetToDict;
 module.exports.appendGeneralLoc = appendTweetToDictGenLoc;
+module.exports.givenState = givenState;
 module.exports.getState = getState;
 
 
